@@ -1,9 +1,10 @@
 <template>
-  <router-view></router-view>
+  <div @contextmenu.prevent>
+    <router-view></router-view>
+  </div>
 </template>
 
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 <style>
 body {
   margin: 0;

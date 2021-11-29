@@ -1,26 +1,26 @@
 <template>
   <img
-    v-if="storage.mode === '1'"
+    v-if="storage.mode === 'dark'"
     class="wallpaper"
     src="@a/img/wallpaper-night.jpg"
     :class="{ 'input-focus': focus }"
   />
   <img v-else class="wallpaper" src="@a/img/wallpaper-day.jpg" :class="{ 'input-focus': focus }" />
-  <div class="cover" v-show="focus"></div>
-  <div class="page df aic jcc ffcn" @contextmenu.prevent>
+  <div class="page df aic jcc ffcn">
     <img class="avatar" src="@a/img/avatar.jpg" title="切换账户" />
     <span class="user-name fp">{{ storage.userName }}</span>
-    <input
+    <el-input
       class="password"
       v-model="password"
       type="password"
-      maxlength="16"
-      autocomplete="off"
+      :maxlength="16"
+      placeholder="Enter Password"
+      autofocus
       @focus="focus = true"
       @blur="focus = false"
-      autofocus
-      placeholder="Enter Password"
-    />
+      @input="inputPassword"
+      @keyup.enter="submit"
+    ></el-input>
   </div>
 </template>
 
@@ -29,22 +29,26 @@ import { ref } from "vue";
 import storage from "@t/storage";
 storage.userName = "Gaojie Hu";
 
+import { useRouter } from "vue-router";
+const router = useRouter();
+
 const password = ref("");
 const focus = ref(false);
+
+function submit() {
+  if (password.value.length > 6) {
+    router.push("/HomePage");
+  }
+}
+
+function inputPassword(value: string) {
+  if (value.length > 11) {
+    router.push("/HomePage");
+  }
+}
 </script>
 
 <style lang="scss" scoped>
-.cover {
-  z-index: -1;
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  background-image: radial-gradient(rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0.5) 100%),
-    radial-gradient(rgba(0, 0, 0, 0) 33%, rgba(0, 0, 0, 0.3) 166%);
-  transition: 0.25s;
-}
 .input-focus {
   filter: blur(10px);
   transform: scale(1.1);
@@ -66,11 +70,12 @@ const focus = ref(false);
   width: 100vw;
   height: 100vh;
   .avatar {
+    margin-top: -15%;
     width: 100px;
     height: 100px;
     border-radius: 50%;
     cursor: pointer;
-    transition: 1s all ease-in-out;
+    transition: 1s transform ease-in-out;
   }
   .avatar:hover {
     transform: scale(1.1) rotate(360deg);
@@ -85,13 +90,23 @@ const focus = ref(false);
     letter-spacing: 0.1rem;
   }
   .password {
+    width: 250px;
     border: none;
     padding: 6px 12px;
     margin-top: 15px;
     outline: none;
-    background: rgba($color: #fff, $alpha: 0.4);
-    color: #fff;
     border-radius: 4px;
+    background: rgba($color: #fff, $alpha: 0.4);
+    & :deep(input) {
+      padding: 0;
+      color: #fff;
+      background: rgba($color: #000, $alpha: 0);
+      border: none;
+      height: 22px;
+      &::placeholder {
+        color: #fff;
+      }
+    }
   }
 }
 </style>

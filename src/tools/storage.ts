@@ -5,7 +5,7 @@ import { decode } from "js-base64";
 const { VITE_APP_KEY } = import.meta.env;
 //数据缓存
 const STORAGE_NAME_LIST = [
-  { key: "mode", type: "local" }, //应用模式
+  { key: "mode", type: "local" }, //应用模式 dark晚上 light白天
   { key: "userName", type: "local" },
   { key: "userId", type: "local" },
   { key: "phone", type: "session" },
