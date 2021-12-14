@@ -2,10 +2,12 @@
   <img v-if="storage.mode === 'dark'" class="wallpaper" src="@a/img/wallpaper-night.jpg" @contextmenu.prevent />
   <img v-else class="wallpaper" src="@a/img/wallpaper-day.jpg" @contextmenu.prevent />
   <home-navigation></home-navigation>
+  <window></window>
 </template>
 
 <script lang="ts" setup>
 import HomeNavigation from "./components/home-navigation.vue";
+import Window from "@p/apps/window/index.vue"
 import storage from "@t/storage";
 </script>
 
