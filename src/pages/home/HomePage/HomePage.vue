@@ -3,11 +3,12 @@
   <img v-else class="wallpaper" src="@a/img/wallpaper-day.jpg" @contextmenu.prevent />
   <home-navigation></home-navigation>
   <window></window>
+  <app-window></app-window>
 </template>
 
 <script lang="ts" setup>
 import HomeNavigation from "./components/home-navigation.vue";
-import Window from "@p/apps/window/index.vue"
+import Window from "@p/AppWindow/index.vue"
 import storage from "@t/storage";
 </script>
 
