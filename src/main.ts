@@ -3,6 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import "@a/css/df.css";
 import AppWindow from "./pages/AppWindow/index";
+import {} from "@t/rxjs";
 
 const app = createApp(App);
 

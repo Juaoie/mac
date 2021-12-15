@@ -11,17 +11,19 @@
     "element-plus": "^1.2.0-beta.3",
     "js-base64": "^3.7.2",
     "js-md5": "^0.7.3",
+    "rxjs": "^7.4.0",
     "vue": "^3.2.16",
+    "vue-drag-resize": "^1.5.4",
     "vue-router": "4.0.12"
   },
   "devDependencies": {
     "@types/js-md5": "^0.4.3",
     "@types/node": "^16.11.10",
     "@vitejs/plugin-vue": "^1.9.3",
+    "sass": "^1.43.4",
     "typescript": "^4.4.3",
     "unplugin-vue-components": "^0.17.2",
     "vite": "^2.6.4",
-    "sass": "^1.43.4",
     "vue-tsc": "^0.3.0"
   }
 }

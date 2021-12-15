@@ -1016,6 +1016,13 @@ run-parallel@^1.1.9:
   dependencies:
     queue-microtask "^1.2.2"
 
+rxjs@^7.4.0:
+  version "7.4.0"
+  resolved "https://registry.npmmirror.com/rxjs/download/rxjs-7.4.0.tgz#a12a44d7eebf016f5ff2441b87f28c9a51cebc68"
+  integrity sha1-oSpE1+6/AW9f8kQbh/KMmlHOvGg=
+  dependencies:
+    tslib "~2.1.0"
+
 sass@^1.43.4:
   version "1.43.4"
   resolved "https://registry.yarnpkg.com/sass/-/sass-1.43.4.tgz#68c7d6a1b004bef49af0d9caf750e9b252105d1f"
@@ -1061,6 +1068,11 @@ token-stream@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/token-stream/-/token-stream-1.0.0.tgz#cc200eab2613f4166d27ff9afc7ca56d49df6eb4"
   integrity sha1-zCAOqyYT9BZtJ/+a/HylbUnfbrQ=
+
+tslib@~2.1.0:
+  version "2.1.0"
+  resolved "https://registry.nlark.com/tslib/download/tslib-2.1.0.tgz#da60860f1c2ecaa5703ab7d39bc05b6bf988b97a"
+  integrity sha1-2mCGDxwuyqVwOrfTm8Bba/mIuXo=
 
 typescript@^4.4.3:
   version "4.5.2"
@@ -1245,6 +1257,13 @@ vue-demi@*:
   version "0.12.1"
   resolved "https://registry.yarnpkg.com/vue-demi/-/vue-demi-0.12.1.tgz#f7e18efbecffd11ab069d1472d7a06e319b4174c"
   integrity sha512-QL3ny+wX8c6Xm1/EZylbgzdoDolye+VpCXRhI2hug9dJTP3OUJ3lmiKN3CsVV3mOJKwFi0nsstbgob0vG7aoIw==
+
+vue-drag-resize@^1.5.0-rc3, vue-drag-resize@^1.5.4:
+  version "1.5.4"
+  resolved "https://registry.nlark.com/vue-drag-resize/download/vue-drag-resize-1.5.4.tgz#f583f40f356e5792aa89109b3d13ba4407c25198"
+  integrity sha1-9YP0DzVuV5KqiRCbPRO6RAfCUZg=
+  dependencies:
+    vue-drag-resize "^1.5.0-rc3"
 
 vue-router@4.0.12:
   version "4.0.12"
