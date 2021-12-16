@@ -7,6 +7,8 @@ export interface RunApp {
 export interface RunAppStyle {
   x: number;
   y: number;
+  w: number;
+  h: number;
   zIndex: number;
   minW: number;
   minH: number;

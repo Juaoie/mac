@@ -24,12 +24,10 @@ async function created() {
   list.value.forEach((item) => store.commit("setMaxZIndex", item.style.zIndex));
 }
 created();
-
 watch(
   () => list.value,
-  (e) => {
-    //发送改变 加 防抖函数 保存数据
-    console.log("保存数据");
+  () => {
+    console.log("list");
   },
   {
     deep: true,

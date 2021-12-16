@@ -1,8 +1,10 @@
 <template>
   <Vue3DraggableResizable
     :resizable="true"
-    :x="runApp.style.x"
-    :y="runApp.style.y"
+    v-model:x="runApp.style.x"
+    v-model:y="runApp.style.y"
+    v-model:w="runApp.style.w"
+    v-model:h="runApp.style.h"
     :z-index="runApp.style.zIndex"
     :min-w="runApp.style.minW"
     :min-h="runApp.style.minH"
@@ -19,8 +21,6 @@
 
 <script lang="ts" setup>
 import Vue3DraggableResizable from "./components/Vue3DraggableResizable.vue";
-// import Vue3DraggableResizable from "vue3-draggable-resizable";
-//需引入默认样式
 import { ref, watch, CSSProperties, onUnmounted } from "vue";
 import { RunApp } from "@/socket/interface/RunApp";
 import { useStore } from "@/store";
@@ -35,6 +35,15 @@ function activatedHandle() {
   store.commit("setMaxZIndex", store.state.maxZIndex + 1);
   runApp.style.zIndex = store.state.maxZIndex;
 }
+watch(
+  () => runApp,
+  () => {
+    console.log("更新");
+  },
+  {
+    deep: true,
+  }
+);
 </script>
 <style lang="scss" scoped>
 .window-bear {
