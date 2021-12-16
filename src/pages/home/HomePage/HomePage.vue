@@ -3,13 +3,38 @@
   <img v-else class="wallpaper" src="@a/img/wallpaper-day.jpg" @contextmenu.prevent />
   <div class="mask pa"></div>
   <home-navigation></home-navigation>
-  <window></window>
+  <template v-for="item in list" :key="item.id">
+    <app-window :runApp="item"></app-window>
+  </template>
 </template>
 
 <script lang="ts" setup>
 import HomeNavigation from "./components/home-navigation.vue";
-import Window from "@p/AppWindow/index.vue";
+import AppWindow from "@p/AppWindow/index.vue";
 import storage from "@t/storage";
+import { ref, watch } from "vue";
+import { getRunAppList } from "@s/api";
+import { RunApp } from "@/socket/interface/RunApp";
+import { useStore } from "@/store";
+const store = useStore();
+
+const list = ref<RunApp[] | null>(null);
+async function created() {
+  list.value = await getRunAppList();
+  list.value.forEach((item) => store.commit("setMaxZIndex", item.style.zIndex));
+}
+created();
+
+watch(
+  () => list.value,
+  (e) => {
+    //发送改变 加 防抖函数 保存数据
+    console.log("保存数据");
+  },
+  {
+    deep: true,
+  }
+);
 </script>
 
 <style lang="scss" scoped>

@@ -1,8 +1,17 @@
 <template>
-  <Vue3DraggableResizable :resizable="true" :initW="300" :initH="200" :parent="false" @activated="activatedHandle">
+  <Vue3DraggableResizable
+    :resizable="true"
+    :x="runApp.style.x"
+    :y="runApp.style.y"
+    :z-index="runApp.style.zIndex"
+    :min-w="runApp.style.minW"
+    :min-h="runApp.style.minH"
+    :parent="false"
+    @activated="activatedHandle"
+  >
     <div class="window-bear">
       <div class="window-bar df aic jcc">
-        <span>app</span>
+        <span>{{ runApp.title }}</span>
       </div>
     </div>
   </Vue3DraggableResizable>
@@ -13,11 +22,18 @@ import Vue3DraggableResizable from "./components/Vue3DraggableResizable.vue";
 // import Vue3DraggableResizable from "vue3-draggable-resizable";
 //需引入默认样式
 import { ref, watch, CSSProperties, onUnmounted } from "vue";
+import { RunApp } from "@/socket/interface/RunApp";
+import { useStore } from "@/store";
+const store = useStore();
+
+const { runApp } = defineProps<{ runApp: RunApp }>();
 
 onUnmounted(() => {});
 
 function activatedHandle() {
-  console.log("🚀 ~ file: index.vue ~ line 20 ~ activatedHandle ~ res");
+  if (store.state.maxZIndex === runApp.style.zIndex) return;
+  store.commit("setMaxZIndex", store.state.maxZIndex + 1);
+  runApp.style.zIndex = store.state.maxZIndex;
 }
 </script>
 <style lang="scss" scoped>

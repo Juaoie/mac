@@ -9,3 +9,7 @@ const get = async (url: string, config?: AxiosRequestConfig<any> | undefined) =>
 //获取导航列表
 import { Navigation } from "./interface/Navigation";
 export const getNavList = (): Promise<Navigation[]> => get("/user/getNavList");
+
+//获取运行时候的app
+import { RunApp } from "./interface/RunApp";
+export const getRunAppList = (): Promise<RunApp[]> => get("/user/getRunAppList");
