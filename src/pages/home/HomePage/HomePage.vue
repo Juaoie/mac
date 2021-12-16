@@ -4,7 +4,6 @@
   <div class="mask pa"></div>
   <home-navigation></home-navigation>
   <window></window>
-  <app-window></app-window>
 </template>
 
 <script lang="ts" setup>

@@ -88,6 +88,7 @@ function inputPassword(value: string) {
     margin-top: 15px;
     line-height: 1.75rem;
     letter-spacing: 0.1rem;
+    user-select: none;
   }
   .password {
     width: 250px;

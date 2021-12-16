@@ -1258,13 +1258,6 @@ vue-demi@*:
   resolved "https://registry.yarnpkg.com/vue-demi/-/vue-demi-0.12.1.tgz#f7e18efbecffd11ab069d1472d7a06e319b4174c"
   integrity sha512-QL3ny+wX8c6Xm1/EZylbgzdoDolye+VpCXRhI2hug9dJTP3OUJ3lmiKN3CsVV3mOJKwFi0nsstbgob0vG7aoIw==
 
-vue-drag-resize@^1.5.0-rc3, vue-drag-resize@^1.5.4:
-  version "1.5.4"
-  resolved "https://registry.nlark.com/vue-drag-resize/download/vue-drag-resize-1.5.4.tgz#f583f40f356e5792aa89109b3d13ba4407c25198"
-  integrity sha1-9YP0DzVuV5KqiRCbPRO6RAfCUZg=
-  dependencies:
-    vue-drag-resize "^1.5.0-rc3"
-
 vue-router@4.0.12:
   version "4.0.12"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-4.0.12.tgz#8dc792cddf5bb1abcc3908f9064136de7e13c460"
@@ -1278,6 +1271,11 @@ vue-tsc@^0.3.0:
   integrity sha512-zaDRZBxwRIz1XjhNP92FqugG71st6BUMnA2EwPeXrAyzbEYVRz6TezNFceYl3QYqqN8CtaxbqUhaQEDj/ntoCA==
   dependencies:
     vscode-vue-languageservice "^0.27.0"
+
+vue3-draggable-resizable@^1.6.1:
+  version "1.6.1"
+  resolved "https://registry.npmmirror.com/vue3-draggable-resizable/download/vue3-draggable-resizable-1.6.1.tgz#30504ef42444fa2c058f66e8f707b93b078e4723"
+  integrity sha1-MFBO9CRE+iwFj2bo9we5OweORyM=
 
 vue@^3.2.16:
   version "3.2.22"

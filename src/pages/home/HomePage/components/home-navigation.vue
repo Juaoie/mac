@@ -66,6 +66,7 @@ created();
   right: 0;
   margin-left: auto;
   margin-right: auto;
+  user-select: none;
   .navigation {
     height: 64px;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.17);
