@@ -1,5 +1,6 @@
 export interface Navigation {
-  id: number;
-  url: string;
+  appId: number;
+  icon: string;
   title: string;
+  name: string;
 }

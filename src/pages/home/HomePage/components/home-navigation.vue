@@ -1,9 +1,9 @@
 <template>
   <div class="dock pf df aic jcc" ref="dock" @mousemove="mousemove" @mouseleave="mouseout">
     <ul class="navigation df aife pr">
-      <li class="df jcc" v-for="item in list" @mousemove="hoverIndex = item.id" @mouseout="hoverIndex = 0">
-        <img :src="item.url" />
-        <span class="tooltip pa" v-show="hoverIndex === item.id">{{ item.title }}</span>
+      <li class="df jcc" v-for="item in list" @mousemove="hoverIndex = item.appId" @mouseout="hoverIndex = 0">
+        <img :src="item.icon" />
+        <span class="tooltip pa" v-show="hoverIndex === item.appId">{{ item.title }}</span>
       </li>
     </ul>
   </div>
