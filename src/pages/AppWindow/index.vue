@@ -1,5 +1,5 @@
 <template>
-  <Vue3DraggableResizable
+  <!-- <Vue3DraggableResizable
     :resizable="true"
     :initW="runApp.style.width"
     :initH="runApp.style.height"
@@ -15,6 +15,13 @@
     @drag-end="dragEnd"
     @resize-start="activatedHandle"
     @resize-end="resizeEnd"
+  >
+      </Vue3DraggableResizable> -->
+  <VueDragResize
+    v-model:x="runApp.style.left"
+    v-model:y="runApp.style.top"
+    v-model:w="runApp.style.width"
+    v-model:h="runApp.style.height"
   >
     <div class="window-bear">
       <div class="window-bar df aic jcc pr">
@@ -32,10 +39,11 @@
         <span>{{ runApp.title }}</span>
       </div>
     </div>
-  </Vue3DraggableResizable>
+  </VueDragResize>
 </template>
 
 <script lang="ts" setup>
+import VueDragResize from "vue-drag-resize";
 import Vue3DraggableResizable from "./components/Vue3DraggableResizable.vue";
 import { ref, watch, CSSProperties, onUnmounted, provide } from "vue";
 import { RunAppRes } from "@/socket/interface/response/RunAppRes";
