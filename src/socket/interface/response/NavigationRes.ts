@@ -1,6 +1,5 @@
-export interface Navigation {
+export interface NavigationRes {
   appId: number;
   icon: string;
-  title: string;
   name: string;
 }

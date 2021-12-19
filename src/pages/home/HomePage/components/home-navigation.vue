@@ -1,9 +1,15 @@
 <template>
   <div class="dock pf df aic jcc" ref="dock" @mousemove="mousemove" @mouseleave="mouseout">
     <ul class="navigation df aife pr">
-      <li class="df jcc" v-for="item in list" @mousemove="hoverIndex = item.appId" @mouseout="hoverIndex = 0">
+      <li
+        class="df jcc"
+        v-for="item in list"
+        @mousemove="hoverIndex = item.appId"
+        @mouseout="hoverIndex = 0"
+        @click="runApp(item)"
+      >
         <img :src="item.icon" />
-        <span class="tooltip pa" v-show="hoverIndex === item.appId">{{ item.title }}</span>
+        <span class="tooltip pa" v-show="hoverIndex === item.appId">{{ item.name }}</span>
       </li>
     </ul>
   </div>
@@ -11,8 +17,15 @@
 
 <script lang="ts" setup>
 import { ref, Ref } from "vue";
-import { getNavList } from "@s/api";
-import { Navigation } from "@/socket/interface/Navigation";
+import { addRunApp, getNavList } from "@s/api";
+import { NavigationRes } from "@/socket/interface/response/NavigationRes";
+import { RunAppReq, StyleReq } from "@s/interface/request/RunAppReq";
+
+import { useStore } from "@/store";
+const store = useStore();
+
+const emits = defineEmits(["getRunAppList"]);
+
 const dock = ref<HTMLElement | null>();
 
 function mousemove(mouseEvent: MouseEvent) {
@@ -51,16 +64,37 @@ function mouseout() {
 }
 
 const hoverIndex = ref(0);
-const list = ref<Navigation[]>([]);
+const list = ref<NavigationRes[]>([]);
 async function created() {
   list.value = await getNavList();
 }
 created();
+
+async function runApp(nav: NavigationRes) {
+  const clientWidth = document.body.clientWidth;
+  const clientHeight = document.body.clientHeight;
+  store.commit("setMaxZIndex", store.state.maxZIndex + 1);
+  const style: StyleReq = {
+    left: clientWidth / 2 - 150,
+    top: 300,
+    width: 300,
+    height: 200,
+    zIndex: store.state.maxZIndex,
+  };
+  const runApp: RunAppReq = {
+    appId: nav.appId,
+    title: nav.name,
+    state: true,
+    style,
+  };
+  await addRunApp(runApp);
+  emits("getRunAppList");
+}
 </script>
 <style lang="scss" scoped>
 .dock {
   width: fit-content;
-  z-index: 100;
+  z-index: 9999999999999;
   bottom: 0;
   left: 0;
   right: 0;

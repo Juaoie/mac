@@ -1,15 +1,19 @@
 <template>
   <Vue3DraggableResizable
     :resizable="true"
-    v-model:x="runApp.style.x"
-    v-model:y="runApp.style.y"
-    v-model:w="runApp.style.w"
-    v-model:h="runApp.style.h"
+    :initW="runApp.style.width"
+    :initH="runApp.style.height"
+    v-model:x="runApp.style.left"
+    v-model:y="runApp.style.top"
+    v-model:w="runApp.style.width"
+    v-model:h="runApp.style.height"
     :z-index="runApp.style.zIndex"
-    :min-w="runApp.style.minW"
-    :min-h="runApp.style.minH"
+    :min-w="300"
+    :min-h="200"
     :parent="false"
     @activated="activatedHandle"
+    @drag-end="dragEnd"
+    @resize-end="resizeEnd"
   >
     <div class="window-bear">
       <div class="window-bar df aic jcc">
@@ -22,28 +26,44 @@
 <script lang="ts" setup>
 import Vue3DraggableResizable from "./components/Vue3DraggableResizable.vue";
 import { ref, watch, CSSProperties, onUnmounted } from "vue";
-import { RunApp } from "@/socket/interface/RunApp";
+import { RunAppRes } from "@/socket/interface/response/RunAppRes";
 import { useStore } from "@/store";
+import { setRunApp } from "@s/api";
+import { RunAppReq, StyleReq } from "@/socket/interface/request/RunAppReq";
 const store = useStore();
 
-const { runApp } = defineProps<{ runApp: RunApp }>();
+const { runApp } = defineProps<{ runApp: RunAppRes }>();
+console.log("🚀 ~ file: index.vue ~ line 34 ~ runApp", runApp);
 
 onUnmounted(() => {});
 
+/**
+ * 选中状态
+ */
 function activatedHandle() {
   if (store.state.maxZIndex === runApp.style.zIndex) return;
   store.commit("setMaxZIndex", store.state.maxZIndex + 1);
   runApp.style.zIndex = store.state.maxZIndex;
+  setRunAppFun();
 }
-watch(
-  () => runApp,
-  () => {
-    console.log("更新");
-  },
-  {
-    deep: true,
-  }
-);
+/**
+ * 拖动结束触发
+ */
+function dragEnd() {
+  setRunAppFun();
+}
+/**
+ * 缩放结束触发
+ */
+function resizeEnd() {
+  setRunAppFun();
+}
+/**
+ * 更新runapp数据
+ */
+function setRunAppFun() {
+  setRunApp(runApp);
+}
 </script>
 <style lang="scss" scoped>
 .window-bear {
