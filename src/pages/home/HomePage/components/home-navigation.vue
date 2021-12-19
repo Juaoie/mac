@@ -72,7 +72,6 @@ created();
 
 async function runApp(nav: NavigationRes) {
   const clientWidth = document.body.clientWidth;
-  const clientHeight = document.body.clientHeight;
   store.commit("setMaxZIndex", store.state.maxZIndex + 1);
   const style: StyleReq = {
     left: clientWidth / 2 - 150,

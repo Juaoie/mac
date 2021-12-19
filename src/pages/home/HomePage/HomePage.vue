@@ -4,7 +4,7 @@
   <div class="mask pa"></div>
   <home-navigation @getRunAppList="created"></home-navigation>
   <template v-for="item in list" :key="item.id">
-    <app-window :runApp="item"></app-window>
+    <app-window @getRunAppList="created" :runApp="item"></app-window>
   </template>
 </template>
 
@@ -21,7 +21,6 @@ const store = useStore();
 const list = ref<RunAppRes[] | null>(null);
 async function created() {
   list.value = await getRunAppList();
-  console.log("🚀 ~ file: HomePage.vue ~ line 24 ~ created ~  list.value ", list.value);
   list.value.forEach((item) => store.commit("setMaxZIndex", item.style.zIndex));
 }
 created();

@@ -27,6 +27,11 @@
     "@babel/helper-validator-identifier" "^7.15.7"
     to-fast-properties "^2.0.0"
 
+"@element-plus/icons-vue@^0.2.4":
+  version "0.2.4"
+  resolved "https://registry.npmmirror.com/@element-plus/icons-vue/download/@element-plus/icons-vue-0.2.4.tgz#dadcf72f0cea53dc83b7b7db80e1418716d7b02c"
+  integrity sha512-RsJNyL58rwxtsjeMy34o8txkL6UlME1stWsUlRpTac6UE9Bx9gdJvnDXbIKhOJqBLX17fBjmposdrn6VTqim2w==
+
 "@element-plus/icons@^0.0.11":
   version "0.0.11"
   resolved "https://registry.yarnpkg.com/@element-plus/icons/-/icons-0.0.11.tgz#9b187c002774548b911850d17fa5fc2f9a515f57"
@@ -762,6 +767,13 @@ local-pkg@^0.1.0:
   dependencies:
     mlly "^0.2.2"
 
+local-pkg@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.npmmirror.com/local-pkg/download/local-pkg-0.4.0.tgz#e6221171813d5a0812dd84fa80ffb1c8fcc00531"
+  integrity sha1-5iIRcYE9WggS3YT6gP+xyPzABTE=
+  dependencies:
+    mlly "^0.2.2"
+
 lodash@^4.17.21:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
@@ -1079,6 +1091,18 @@ typescript@^4.4.3:
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.5.2.tgz#8ac1fba9f52256fdb06fb89e4122fa6a346c2998"
   integrity sha512-5BlMof9H1yGt0P8/WF+wPNw6GfctgGjXp5hkblpyT+8rkASSmkUKMXrxR0Xg8ThVCi/JnHQiKXeBaEwCeQwMFw==
 
+unplugin-auto-import@^0.5.3:
+  version "0.5.3"
+  resolved "https://registry.npmmirror.com/unplugin-auto-import/download/unplugin-auto-import-0.5.3.tgz#7eb5251b83075941ae2a316c735ddded50f3523d"
+  integrity sha512-jXs0rnKTS+/TyXOild6RkVp73yz1DeLXVJWR6VRn+oageEsvHgW6zofvc2BmpAm/pTSANxZ48kLi12wOa/iwdw==
+  dependencies:
+    "@antfu/utils" "^0.3.0"
+    "@rollup/pluginutils" "^4.1.1"
+    local-pkg "^0.4.0"
+    magic-string "^0.25.7"
+    resolve "^1.20.0"
+    unplugin "^0.2.21"
+
 unplugin-vue-components@^0.17.2:
   version "0.17.2"
   resolved "https://registry.yarnpkg.com/unplugin-vue-components/-/unplugin-vue-components-0.17.2.tgz#db7e669fac3cc36b87ba056f63e2eaa47a7f1b9b"
@@ -1095,7 +1119,7 @@ unplugin-vue-components@^0.17.2:
     resolve "^1.20.0"
     unplugin "^0.2.13"
 
-unplugin@^0.2.13:
+unplugin@^0.2.13, unplugin@^0.2.21:
   version "0.2.21"
   resolved "https://registry.yarnpkg.com/unplugin/-/unplugin-0.2.21.tgz#7852cddd9f78f0b32881812fd2efd5a39dcc64e5"
   integrity sha512-IJ15/L5XbhnV7J09Zjk0FT5HEkBjkXucWAXQWRsmEtUxmmxwh23yavrmDbCF6ZPxWiVB28+wnKIHePTRRpQPbQ==

@@ -29,3 +29,6 @@ export const addRunApp = (data: RunAppReq): Promise<string> => post("/user/addRu
 
 //设置运行得数据
 export const setRunApp = (data: RunAppRes): Promise<string> => post("/user/setRunApp", data);
+
+//删除runapp
+export const deleteRunApp = (data: { id: number }): Promise<string> => post("/user/deleteRunApp", data);
