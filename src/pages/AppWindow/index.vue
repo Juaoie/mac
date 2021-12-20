@@ -1,13 +1,13 @@
 <template>
   <Vue3DraggableResizable
     :resizable="true"
-    :initW="runApp.style.width"
-    :initH="runApp.style.height"
-    v-model:x="runApp.style.left"
-    v-model:y="runApp.style.top"
-    v-model:w="runApp.style.width"
-    v-model:h="runApp.style.height"
-    :z-index="runApp.style.zIndex"
+    :initW="width"
+    :initH="height"
+    v-model:x="left"
+    v-model:y="top"
+    v-model:w="width"
+    v-model:h="height"
+    :z-index="zIndex"
     :min-w="300"
     :min-h="200"
     :parent="false"
@@ -37,25 +37,44 @@
 
 <script lang="ts" setup>
 import Vue3DraggableResizable from "./components/Vue3DraggableResizable.vue";
-import { ref, watch, CSSProperties, onUnmounted, provide } from "vue";
+import { ref, watch, CSSProperties, onUnmounted, provide, Ref } from "vue";
 import { useStore } from "@/store";
 import { setRunApp, deleteRunApp } from "@s/api";
 import { Close, Minus, FullScreen } from "@element-plus/icons-vue";
 import { RunAppRes } from "@/socket/interface/response/RunAppRes";
+import { StyleNamelist } from "@t/type";
 
 const store = useStore();
 
-const props = defineProps<{ runApp: RunAppRes }>();
-onUnmounted(() => {});
+const { runAppId } = defineProps<{ runAppId: number }>();
+const runApp = store.state.runAppList.find((item) => item.id === runAppId);
+if (runApp === undefined) throw "runApp不存在";
+const width = ref(runApp.style.width);
+const height = ref(runApp.style.height);
+const top = ref(runApp.style.top);
+const left = ref(runApp.style.left);
+const zIndex = ref(runApp.style.zIndex);
+useWatch(width);
+useWatch(height);
+useWatch(top);
+useWatch(left);
+useWatch(zIndex);
+function useWatch(source: Ref) {
+  watch(
+    () => source.value,
+    (res) => {
+      store.commit("setRunAppStyle", { id: runAppId, name: res.toString(), value: res });
+    }
+  );
+}
 
 /**
  * 选中状态
  */
 function activatedHandle() {
-  if (store.state.maxZIndex === props.runApp.style.zIndex) return;
+  if (store.state.maxZIndex === zIndex.value) return;
   store.commit("setMaxZIndex", store.state.maxZIndex + 1);
-  props.runApp.style.zIndex = store.state.maxZIndex;
-  setRunAppFun();
+  store.commit("setRunAppStyle", { id: runAppId, name: "maxZIndex", value: store.state.maxZIndex });
 }
 /**
  * 拖动结束触发
@@ -72,15 +91,15 @@ function resizeEnd() {
 /**
  * 更新runapp数据
  */
-function setRunAppFun() {
-  setRunApp(props.runApp);
+async function setRunAppFun() {
+  await store.commit("setRunApp");
 }
 
 /**
  * 点击关闭窗口
  */
 function closeAppWindow() {
-  store.dispatch("deleteRunApp", props.runApp.id);
+  store.dispatch("deleteRunApp", runAppId);
 }
 </script>
 <style lang="scss" scoped>

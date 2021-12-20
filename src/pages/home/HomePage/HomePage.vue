@@ -5,7 +5,7 @@
   <home-navigation></home-navigation>
   <DraggableContainer :referenceLineVisible="false">
     <template v-for="item in store.state.runAppList" :key="item.id">
-      <app-window :runApp="item"></app-window>
+      <app-window :runAppId="item.id"></app-window>
     </template>
   </DraggableContainer>
 </template>
@@ -18,12 +18,6 @@ import storage from "@t/storage";
 import { getRunAppList } from "@s/api";
 import { useStore } from "@/store";
 const store = useStore();
-
-async function created() {
-  const runAppList = await getRunAppList();
-  store.commit("setRunAppList", runAppList);
-}
-created();
 </script>
 
 <style lang="scss" scoped>

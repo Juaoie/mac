@@ -1,4 +1,5 @@
 import { RunAppRes } from "@/socket/interface/response/RunAppRes";
+import { StyleName } from "@/tools/type";
 import { State } from "./state";
 export const mutations = {
   /**
@@ -11,19 +12,22 @@ export const mutations = {
   },
   /**
    * 设置runapplist
-   * @param state 
-   * @param runAppList 
+   * @param state
+   * @param runAppList
    */
   setRunAppList(state: State, runAppList: RunAppRes[]) {
     state.runAppList = runAppList;
   },
   /**
    * 设置单个runapp
-   * @param state 
-   * @param runApp 
+   * @param state
+   * @param runApp
    */
-  // setRunApp(state:State,runApp:RunAppRes){
-  //  const runApp=  state.runAppList.find(item=>item.id === runApp.id)
-
-  // }
+  setRunAppStyle(state: State, runApp: { id: number; name: StyleName; value: number }) {
+    console.log("🚀 ~ file: mutations.ts ~ line 27 ~ setRunAppStyle ~ name", runApp.name);
+    const index = state.runAppList.findIndex((item) => item.id === runApp.id);
+    if (index !== -1) {
+      state.runAppList[index].style[runApp.name] = runApp.value;
+    }
+  },
 };
