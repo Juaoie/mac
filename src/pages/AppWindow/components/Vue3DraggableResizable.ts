@@ -224,7 +224,7 @@ const VueDraggableResizable = defineComponent({
         ...this.handlesFiltered.map((item) =>
           h("div", {
             class: ["vdr-handle", "vdr-handle-" + item, this.classNameHandle, `${this.classNameHandle}-${item}`],
-            style: { display: this.enable ? 'block' : 'none' },
+            // style: { display: this.enable ? 'block' : 'none' }, //失去焦点会隐藏拖动按钮
             onMousedown: (e: MouseEvent) => this.resizeHandleDown(e, <ResizingHandle>item),
             onTouchstart: (e: TouchEvent) => this.resizeHandleDown(e, <ResizingHandle>item),
           })

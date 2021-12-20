@@ -1,30 +1,30 @@
 Arguments: 
-  D:\node\node-16.3\node.exe D:\node\npm_global\node_modules\yarn\bin\yarn.js add -D @types/vue-drag-resize
+  D:\node\node\node.exe C:\Users\Administrator\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add @plantdata/vue-draggable-resizable
 
 PATH: 
-  D:\xmanager\xmanager\Xlpd 6\;D:\xmanager\xmanager\Xftp 6\;D:\xmanager\xmanager\Xshell 6\;D:\xmanager\xmanager\Xmanager 6\;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;%JAVA_HOME\bin;D:\maven\apache-maven-3.6.3\bin;D:\git\Git\cmd;D:\node\node-16.3\;C:\Users\uaoie\AppData\Local\Microsoft\WindowsApps;D:\vscode\Microsoft VS Code\bin;D:\解压软件\;D:\node\npm_global;D:\node\yarn_global\node_modules\.bin;
+  C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;D:\git\Git\cmd;D:\node\node\;D:\微信公众开发者工具\微信web开发者工具\dll;D:\wkhtmltopdf\wkhtmltopdf\bin;C:\Users\Administrator\AppData\Local\Microsoft\WindowsApps;;D:\vscode\Microsoft VS Code\bin;C:\Users\Administrator\AppData\Roaming\npm
 
 Yarn version: 
   1.22.10
 
 Node version: 
-  16.3.0
+  14.16.0
 
 Platform: 
   win32 x64
 
 Trace: 
-  Error: https://registry.npm.taobao.org/@types%2fvue-drag-resize: Not found
-      at Request.params.callback [as _callback] (D:\node\npm_global\node_modules\yarn\lib\cli.js:66988:18)
-      at Request.self.callback (D:\node\npm_global\node_modules\yarn\lib\cli.js:140662:22)
-      at Request.emit (node:events:394:28)
-      at Request.<anonymous> (D:\node\npm_global\node_modules\yarn\lib\cli.js:141634:10)
-      at Request.emit (node:events:394:28)
-      at IncomingMessage.<anonymous> (D:\node\npm_global\node_modules\yarn\lib\cli.js:141556:12)
-      at Object.onceWrapper (node:events:513:28)
-      at IncomingMessage.emit (node:events:406:35)
-      at endReadableNT (node:internal/streams/readable:1329:12)
-      at processTicksAndRejections (node:internal/process/task_queues:83:21)
+  Error: https://registry.npm.taobao.org/@plantdata%2fvue-draggable-resizable: Not found
+      at Request.params.callback [as _callback] (C:\Users\Administrator\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:66988:18)
+      at Request.self.callback (C:\Users\Administrator\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:140662:22)
+      at Request.emit (events.js:315:20)
+      at Request.<anonymous> (C:\Users\Administrator\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141634:10)
+      at Request.emit (events.js:315:20)
+      at IncomingMessage.<anonymous> (C:\Users\Administrator\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141556:12)
+      at Object.onceWrapper (events.js:421:28)
+      at IncomingMessage.emit (events.js:327:22)
+      at endReadableNT (internal/streams/readable.js:1327:12)
+      at processTicksAndRejections (internal/process/task_queues.js:80:21)
 
 npm manifest: 
   {

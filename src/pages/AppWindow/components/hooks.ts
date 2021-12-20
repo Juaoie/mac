@@ -362,23 +362,26 @@ export function initResizeHandle(
     setResizingMinHeight,
   } = containerProps;
   const { parentWidth, parentHeight } = parentSize;
-  let lstW = 0;
-  let lstH = 0;
-  let lstX = 0;
-  let lstY = 0;
-  let lstPageX = 0;
-  let lstPageY = 0;
-  let tmpAspectRatio = 1;
+  let lstW = 0; //width
+  let lstH = 0; //height
+  let lstX = 0; //left
+  let lstY = 0; //top
+  let lstPageX = 0; //鼠标到页面的x
+  let lstPageY = 0; //鼠标打页面的y
+  let tmpAspectRatio = 1; //宽高比
   let idx0 = "";
   let idx1 = "";
   const documentElement = document.documentElement;
   const resizeHandleDrag = (e: HandleEvent) => {
     e.preventDefault();
+    // console.log("🚀 ~ file: hooks.ts ~ line 377 ~ resizeHandleDrag ~ e", e)
+
     let [_pageX, _pageY] = getPosition(e);
-    let deltaX = _pageX - lstPageX;
-    let deltaY = _pageY - lstPageY;
+    let deltaX = _pageX - lstPageX; //移动的距离x
+    let deltaY = _pageY - lstPageY; //移动的距离y
     let _deltaX = deltaX;
     let _deltaY = deltaY;
+    //是否锁定宽高比
     if (props.lockAspectRatio) {
       deltaX = Math.abs(deltaX);
       deltaY = deltaX * tmpAspectRatio;
@@ -439,13 +442,15 @@ export function initResizeHandle(
     idx0 = handleType[0];
     idx1 = handleType[1];
     if (aspectRatio.value) {
-      if (["tl", "tm", "ml", "bl"].includes(handleType)) {
-        idx0 = "t";
-        idx1 = "l";
-      } else {
-        idx0 = "b";
-        idx1 = "r";
-      }
+      idx0 = handleType.slice(0, 1);
+      idx1 = handleType.slice(1, 2);
+      // if (["tl", "tm", "ml", "bl"].includes(handleType)) {
+      //   idx0 = "t";
+      //   idx1 = "l";
+      // }  else {
+      //   idx0 = "b";
+      //   idx1 = "r";
+      // }
     }
     let minHeight = props.minH as number;
     let minWidth = props.minW as number;
