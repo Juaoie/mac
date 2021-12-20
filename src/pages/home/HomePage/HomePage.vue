@@ -2,10 +2,10 @@
   <img v-if="storage.mode === 'dark'" class="wallpaper" src="@a/img/wallpaper-night.jpg" @contextmenu.prevent />
   <img v-else class="wallpaper" src="@a/img/wallpaper-day.jpg" @contextmenu.prevent />
   <div class="mask pa"></div>
-  <home-navigation @getRunAppList="created"></home-navigation>
-  <DraggableContainer>
-    <template v-for="item in list" :key="item.id">
-      <app-window @getRunAppList="created" :runApp="item"></app-window>
+  <home-navigation></home-navigation>
+  <DraggableContainer :referenceLineVisible="false">
+    <template v-for="item in store.state.runAppList" :key="item.id">
+      <app-window :runApp="item"></app-window>
     </template>
   </DraggableContainer>
 </template>
@@ -15,16 +15,13 @@ import DraggableContainer from "@/pages/AppWindow/components/DraggableContainer"
 import HomeNavigation from "./components/home-navigation.vue";
 import AppWindow from "@p/AppWindow/index.vue";
 import storage from "@t/storage";
-import { ref, watch } from "vue";
 import { getRunAppList } from "@s/api";
-import { RunAppRes } from "@/socket/interface/response/RunAppRes";
 import { useStore } from "@/store";
 const store = useStore();
 
-const list = ref<RunAppRes[] | null>(null);
 async function created() {
-  list.value = await getRunAppList();
-  list.value.forEach((item) => store.commit("setMaxZIndex", item.style.zIndex));
+  const runAppList = await getRunAppList();
+  store.commit("setRunAppList", runAppList);
 }
 created();
 </script>

@@ -24,8 +24,6 @@ import { RunAppReq, StyleReq } from "@s/interface/request/RunAppReq";
 import { useStore } from "@/store";
 const store = useStore();
 
-const emits = defineEmits(["getRunAppList"]);
-
 const dock = ref<HTMLElement | null>();
 
 function mousemove(mouseEvent: MouseEvent) {
@@ -70,6 +68,9 @@ async function created() {
 }
 created();
 
+/**
+ * 添加一个runapp
+ */
 async function runApp(nav: NavigationRes) {
   const clientWidth = document.body.clientWidth;
   store.commit("setMaxZIndex", store.state.maxZIndex + 1);
@@ -86,8 +87,7 @@ async function runApp(nav: NavigationRes) {
     state: true,
     style,
   };
-  await addRunApp(runApp);
-  emits("getRunAppList");
+  store.dispatch("addRunApp", runApp);
 }
 </script>
 <style lang="scss" scoped>

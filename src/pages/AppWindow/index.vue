@@ -38,10 +38,10 @@
 <script lang="ts" setup>
 import Vue3DraggableResizable from "./components/Vue3DraggableResizable.vue";
 import { ref, watch, CSSProperties, onUnmounted, provide } from "vue";
-import { RunAppRes } from "@/socket/interface/response/RunAppRes";
 import { useStore } from "@/store";
 import { setRunApp, deleteRunApp } from "@s/api";
 import { Close, Minus, FullScreen } from "@element-plus/icons-vue";
+import { RunAppRes } from "@/socket/interface/response/RunAppRes";
 
 const store = useStore();
 
@@ -76,13 +76,11 @@ function setRunAppFun() {
   setRunApp(props.runApp);
 }
 
-const emits = defineEmits(["getRunAppList"]);
 /**
  * 点击关闭窗口
  */
-async function closeAppWindow() {
-  await deleteRunApp({ id: props.runApp.id });
-  emits("getRunAppList");
+function closeAppWindow() {
+  store.dispatch("deleteRunApp", props.runApp.id);
 }
 </script>
 <style lang="scss" scoped>
