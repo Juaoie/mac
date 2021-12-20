@@ -374,7 +374,6 @@ export function initResizeHandle(
   const documentElement = document.documentElement;
   const resizeHandleDrag = (e: HandleEvent) => {
     e.preventDefault();
-    // console.log("🚀 ~ file: hooks.ts ~ line 377 ~ resizeHandleDrag ~ e", e)
 
     let [_pageX, _pageY] = getPosition(e);
     let deltaX = _pageX - lstPageX; //移动的距离x
@@ -441,24 +440,25 @@ export function initResizeHandle(
     setResizing(true);
     idx0 = handleType[0];
     idx1 = handleType[1];
-    if (aspectRatio.value) {
-      idx0 = handleType.slice(0, 1);
-      idx1 = handleType.slice(1, 2);
-      // if (["tl", "tm", "ml", "bl"].includes(handleType)) {
-      //   idx0 = "t";
-      //   idx1 = "l";
-      // }  else {
-      //   idx0 = "b";
-      //   idx1 = "r";
-      // }
-    }
+    // if (aspectRatio.value) {
+    // if (["tl", "tm", "ml", "bl"].includes(handleType)) {
+    //   idx0 = "t";
+    //   idx1 = "l";
+    // }  else {
+    //   idx0 = "b";
+    //   idx1 = "r";
+    // }
+    // }
+    // idx0 = handleType.slice(0, 1);
+    // idx1 = handleType.slice(1, 2);
+
     let minHeight = props.minH as number;
     let minWidth = props.minW as number;
-    if (minHeight / minWidth > aspectRatio.value) {
-      minWidth = minHeight / aspectRatio.value;
-    } else {
-      minHeight = minWidth * aspectRatio.value;
-    }
+    // if (minHeight / minWidth > aspectRatio.value) {
+    //   minWidth = minHeight / aspectRatio.value;
+    // } else {
+    //   minHeight = minWidth * aspectRatio.value;
+    // }
     setResizingMinWidth(minWidth);
     setResizingMinHeight(minHeight);
     if (parent) {
