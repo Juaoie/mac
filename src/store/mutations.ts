@@ -1,15 +1,6 @@
-import { RunAppRes } from "@/socket/interface/response/RunAppRes";
-import { StyleName } from "@/tools/type";
+import { RunAppRes, StryleRes } from "@/socket/interface/response/RunAppRes";
 import { State } from "./state";
 export const mutations = {
-  /**
-   * 设置最大层级
-   * @param state
-   * @param zIndex
-   */
-  setMaxZIndex(state: State, zIndex: number) {
-    if (zIndex > state.maxZIndex) state.maxZIndex = zIndex;
-  },
   /**
    * 设置runapplist
    * @param state
@@ -23,11 +14,10 @@ export const mutations = {
    * @param state
    * @param runApp
    */
-  setRunAppStyle(state: State, runApp: { id: number; name: StyleName; value: number }) {
-    console.log("🚀 ~ file: mutations.ts ~ line 27 ~ setRunAppStyle ~ name", runApp.name);
+  setRunAppStyle(state: State, runApp: { id: number; style: StryleRes }) {
     const index = state.runAppList.findIndex((item) => item.id === runApp.id);
     if (index !== -1) {
-      state.runAppList[index].style[runApp.name] = runApp.value;
+      state.runAppList[index].style = runApp.style;
     }
   },
 };

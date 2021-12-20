@@ -27,8 +27,8 @@ export const getRunAppList = (): Promise<RunAppRes[]> => get("/user/getRunAppLis
 import { RunAppReq } from "./interface/request/RunAppReq";
 export const addRunApp = (data: RunAppReq): Promise<string> => post("/user/addRunApp", data);
 
-//设置运行得数据
-export const setRunApp = (data: RunAppRes): Promise<string> => post("/user/setRunApp", data);
+//更新运行得数据
+export const updateRunApp = (data: RunAppRes): Promise<string> => post("/user/updateRunApp", data);
 
 //删除runapp
 export const deleteRunApp = (data: { id: number }): Promise<string> => post("/user/deleteRunApp", data);

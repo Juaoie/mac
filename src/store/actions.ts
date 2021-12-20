@@ -1,6 +1,6 @@
 import { State } from "./state";
 import { ActionContext } from "vuex";
-import { addRunApp, getRunAppList, deleteRunApp ,setRunApp} from "@/socket/api";
+import { addRunApp, getRunAppList, deleteRunApp, updateRunApp } from "@/socket/api";
 import { RunAppReq } from "@/socket/interface/request/RunAppReq";
 import { RunAppRes } from "@/socket/interface/response/RunAppRes";
 export const actions = {
@@ -9,9 +9,9 @@ export const actions = {
    * @param context
    * @param runApp
    */
-  async setRunApp(context: ActionContext<State, any>, runApp: RunAppRes) {
-       await setRunApp(runApp)
-       
+  async updateRunApp(context: ActionContext<State, any>, runAppId: number) {
+    const runApp = context.state.runAppList.find((item) => item.id === runAppId);
+    if (runApp !== undefined) await updateRunApp(runApp);
   },
   /**
    * 添加

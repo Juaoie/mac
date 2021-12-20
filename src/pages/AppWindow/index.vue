@@ -1,13 +1,13 @@
 <template>
   <Vue3DraggableResizable
     :resizable="true"
-    :initW="width"
-    :initH="height"
-    v-model:x="left"
-    v-model:y="top"
-    v-model:w="width"
-    v-model:h="height"
-    :z-index="zIndex"
+    :initW="style.width"
+    :initH="style.height"
+    v-model:x="style.left"
+    v-model:y="style.top"
+    v-model:w="style.width"
+    v-model:h="style.height"
+    :z-index="style.zIndex"
     :min-w="300"
     :min-h="200"
     :parent="false"
@@ -39,7 +39,6 @@
 import Vue3DraggableResizable from "./components/Vue3DraggableResizable.vue";
 import { ref, watch, CSSProperties, onUnmounted, provide, Ref } from "vue";
 import { useStore } from "@/store";
-import { setRunApp, deleteRunApp } from "@s/api";
 import { Close, Minus, FullScreen } from "@element-plus/icons-vue";
 import { RunAppRes } from "@/socket/interface/response/RunAppRes";
 import { StyleNamelist } from "@t/type";
@@ -49,50 +48,32 @@ const store = useStore();
 const { runAppId } = defineProps<{ runAppId: number }>();
 const runApp = store.state.runAppList.find((item) => item.id === runAppId);
 if (runApp === undefined) throw "runApp不存在";
-const width = ref(runApp.style.width);
-const height = ref(runApp.style.height);
-const top = ref(runApp.style.top);
-const left = ref(runApp.style.left);
-const zIndex = ref(runApp.style.zIndex);
-useWatch(width);
-useWatch(height);
-useWatch(top);
-useWatch(left);
-useWatch(zIndex);
-function useWatch(source: Ref) {
-  watch(
-    () => source.value,
-    (res) => {
-      store.commit("setRunAppStyle", { id: runAppId, name: res.toString(), value: res });
-    }
-  );
-}
+const style = ref(runApp.style);
 
 /**
  * 选中状态
  */
 function activatedHandle() {
-  if (store.state.maxZIndex === zIndex.value) return;
-  store.commit("setMaxZIndex", store.state.maxZIndex + 1);
-  store.commit("setRunAppStyle", { id: runAppId, name: "maxZIndex", value: store.state.maxZIndex });
+  if (store.getters.zIndexMax === style.value.zIndex) return;
+  style.value.zIndex = store.getters.zIndexMax + 1;
 }
 /**
  * 拖动结束触发
  */
 function dragEnd() {
-  setRunAppFun();
+  updateRunApp();
 }
 /**
  * 缩放结束触发
  */
 function resizeEnd() {
-  setRunAppFun();
+  updateRunApp();
 }
 /**
  * 更新runapp数据
  */
-async function setRunAppFun() {
-  await store.commit("setRunApp");
+function updateRunApp() {
+  store.dispatch("updateRunApp", runAppId);
 }
 
 /**

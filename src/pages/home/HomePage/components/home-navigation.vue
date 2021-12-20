@@ -73,13 +73,12 @@ created();
  */
 async function runApp(nav: NavigationRes) {
   const clientWidth = document.body.clientWidth;
-  store.commit("setMaxZIndex", store.state.maxZIndex + 1);
   const style: StyleReq = {
     left: clientWidth / 2 - 150,
     top: 300,
     width: 300,
     height: 200,
-    zIndex: store.state.maxZIndex,
+    zIndex: store.getters.zIndexMax + 1,
   };
   const runApp: RunAppReq = {
     appId: nav.appId,
