@@ -18,16 +18,18 @@
       autofocus
       @focus="focus = true"
       @blur="focus = false"
-      @input="inputPassword"
+      @input="submit"
       @keyup.enter="submit"
     ></el-input>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { userLogin } from "@s/api";
 import { ref } from "vue";
 import storage from "@t/storage";
 storage.userName = "Gaojie Hu";
+storage.userId = 1;
 
 import { useRouter } from "vue-router";
 const router = useRouter();
@@ -35,15 +37,10 @@ const router = useRouter();
 const password = ref("");
 const focus = ref(false);
 
-function submit() {
-  if (password.value.length > 6) {
-    router.push("/HomePage");
-  }
-}
-
-function inputPassword(value: string) {
-  if (value.length > 11) {
-    router.push("/HomePage");
+async function submit() {
+  if (password.value.length >= 6) {
+    // await userLogin({ userId: storage.userId as number, password: password.value });
+    if (password.value === "666666") router.push("/HomePage");
   }
 }
 </script>

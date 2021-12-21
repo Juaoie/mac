@@ -32,3 +32,7 @@ export const updateRunApp = (data: RunAppRes): Promise<string> => post("/user/up
 
 //删除runapp
 export const deleteRunApp = (data: { id: number }): Promise<string> => post("/user/deleteRunApp", data);
+
+//用户登录
+import { UserReq } from "./interface/request/UserReq";
+export const userLogin = (data: UserReq): Promise<string> => post("/user/userLogin", data);

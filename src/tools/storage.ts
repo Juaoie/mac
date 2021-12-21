@@ -20,8 +20,8 @@ const STORAGE_NAME_LIST = [
   { key: "userAccredit", type: "session" }, //是否进行了身份认证，一次登录只认证一次
 ];
 const STORAGE_VERSION = "1";
-const storage: Record<string, string | null> = {};
-const storageMemory: Record<string, string | null> = {};
+const storage: Record<string, string | number | null> = {};
+const storageMemory: Record<string, string | number | null> = {};
 
 const storageDecode = (key: string, type: string, storage: string) => {
   const { value, ts } = JSON.parse(decode(storage));
