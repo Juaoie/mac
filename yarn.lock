@@ -1149,6 +1149,11 @@ typescript@^4.4.3:
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.5.2.tgz#8ac1fba9f52256fdb06fb89e4122fa6a346c2998"
   integrity sha512-5BlMof9H1yGt0P8/WF+wPNw6GfctgGjXp5hkblpyT+8rkASSmkUKMXrxR0Xg8ThVCi/JnHQiKXeBaEwCeQwMFw==
 
+u-node-mq@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/u-node-mq/-/u-node-mq-2.0.2.tgz#8885e19f7af1274a3acd59875d0734660954051b"
+  integrity sha512-jXw6vj66dVl9rWcigIzPbHpntEoBuTftfmKmTvYIaLh/AN0aSbBuxayzeVhMLOpCzinhNuKMOgVAQymjkl3Izw==
+
 unplugin-auto-import@^0.5.3:
   version "0.5.3"
   resolved "https://registry.npmmirror.com/unplugin-auto-import/download/unplugin-auto-import-0.5.3.tgz#7eb5251b83075941ae2a316c735ddded50f3523d"
