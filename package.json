@@ -13,7 +13,7 @@
     "js-base64": "^3.7.2",
     "js-md5": "^0.7.3",
     "rxjs": "^7.4.0",
-    "u-node-mq": "^2.0.2",
+    "u-node-mq": "^2.0.12",
     "vue": "^3.2.16",
     "vue-router": "4.0.12",
     "vue3-draggable-resizable": "^1.6.1",

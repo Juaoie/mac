@@ -11,6 +11,7 @@
 import { useStore } from "@/store/index";
 import { getRunAppList } from "@s/api";
 import UNodeMQ from "u-node-mq";
+import { Next } from "u-node-mq/dist/core/consumer";
 const store = useStore();
 
 async function created() {
@@ -18,25 +19,27 @@ async function created() {
   // store.commit("setRunAppList", runAppList);
 }
 created();
-const unmq = new UNodeMQ<string>({ exchangeName: "exch", queueNameList: ["test"] });
+const unmq = new UNodeMQ<number>({ exchangeName: "exch", queueNameList: ["test"] });
 unmq.exchange.routes = ["test"];
-let a = 1;
+unmq.queueList[0].ask = true;
+let a = 0;
 function send() {
-  unmq.emit("消息本题" + a, "" + a++);
+  unmq.emit(a++, a++);
 }
 
 function on1() {
-  unmq.on("test", (value) => {
+  unmq.on("test", abc, "payload 固定参数");
+  function abc(value: number, next?: Next, pay?: any) {
     console.log(value);
-  })();
+    console.log(pay);
+    if (next) next(false);
+  }
 }
 
 function once() {
-  console.log("🚀 ~ file: App.vue ~ line 36 ~ once ~ unmq", unmq)
-  console.log(JSON.parse(JSON.stringify(unmq)));
-  // unmq.once("test", (value) => {
-  //   console.log("🚀 ~ file: App.vue ~ line 36 ~ numq.once ~ value", value);
-  // });
+  unmq.once("test", (value) => {
+    console.log("🚀 ~ file: App.vue ~ line 36 ~ numq.once ~ value", value);
+  });
 }
 
 function main() {}
