@@ -25,4 +25,12 @@ export default defineConfig({
       "@p": resolve(__dirname, "src/pages/"),
     },
   },
+  server: {
+    host: "0.0.0.0",
+    port: 3001,
+    cors: true,
+    proxy: {
+      "/user": "http://127.0.0.1:3000",
+    },
+  },
 });

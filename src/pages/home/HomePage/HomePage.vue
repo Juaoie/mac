@@ -17,7 +17,15 @@ import AppWindow from "@p/AppWindow/index.vue";
 import storage from "@t/storage";
 import { getRunAppList } from "@s/api";
 import { useStore } from "@/store";
+import { Next } from "u-node-mq/dist/core/consumer";
+
 const store = useStore();
+
+async function created() {
+  const runAppList = await getRunAppList();
+  store.commit("setRunAppList", runAppList);
+}
+created();
 </script>
 
 <style lang="scss" scoped>

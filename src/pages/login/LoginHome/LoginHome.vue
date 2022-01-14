@@ -25,7 +25,8 @@
 </template>
 
 <script lang="ts" setup>
-import { userLogin } from "@s/api";
+import { ElNotification } from "element-plus";
+import { userLogin, quickLogin } from "@s/api";
 import { ref } from "vue";
 import storage from "@t/storage";
 storage.userName = "Gaojie Hu";
@@ -39,10 +40,20 @@ const focus = ref(false);
 
 async function submit() {
   if (password.value.length >= 6) {
-    // await userLogin({ userId: storage.userId as number, password: password.value });
-    if (password.value === "666666") router.push("/HomePage");
+    try {
+      await userLogin({ userId: storage.userId as number, password: password.value });
+      router.push("/HomePage");
+    } catch (error: any) {
+      ElNotification({ message: error.data, type: "error", duration: 1500 });
+    }
   }
 }
+
+async function created() {
+  const data = await quickLogin();
+  if (data) router.push("/HomePage");
+}
+created();
 </script>
 
 <style lang="scss" scoped>
