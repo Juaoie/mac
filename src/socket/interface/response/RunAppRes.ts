@@ -3,9 +3,10 @@ export interface RunAppRes {
   appId: number;
   title: string;
   state: boolean;
-  style: StryleRes;
+  hidden: boolean;
+  style: StyleRes;
 }
-export interface StryleRes {
+export interface StyleRes {
   id: number;
   left: number;
   top: number;

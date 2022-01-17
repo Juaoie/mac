@@ -5,7 +5,7 @@
   <home-navigation></home-navigation>
   <DraggableContainer :referenceLineVisible="false">
     <template v-for="item in store.state.runAppList" :key="item.id">
-      <app-window :runAppId="item.id"></app-window>
+      <app-window :runAppId="item.id" v-show="!item.hidden"></app-window>
     </template>
   </DraggableContainer>
 </template>
@@ -18,12 +18,29 @@ import storage from "@t/storage";
 import { getRunAppList } from "@s/api";
 import { useStore } from "@/store";
 import { Next } from "u-node-mq/dist/core/consumer";
+import { watch } from "vue";
+import { Observable, debounceTime } from "rxjs";
+import { RunAppRes } from "@/socket/interface/response/RunAppRes";
 
 const store = useStore();
 
 async function created() {
   const runAppList = await getRunAppList();
   store.commit("setRunAppList", runAppList);
+  const observable = new Observable<RunAppRes>((observer) => {
+    store.state.runAppList.forEach((item) => {
+      watch(
+        () => item,
+        (res) => observer.next(res),
+        {
+          deep: true,
+        }
+      );
+    });
+  });
+  observable.pipe(debounceTime(500)).subscribe((res) => {
+    store.dispatch("updateRunApp", res.id);
+  });
 }
 created();
 </script>

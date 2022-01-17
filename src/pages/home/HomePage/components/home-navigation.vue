@@ -72,21 +72,29 @@ created();
  * 添加一个runapp
  */
 async function runApp(nav: NavigationRes) {
-  const clientWidth = document.body.clientWidth;
-  const style: StyleReq = {
-    left: clientWidth / 2 - 150,
-    top: 300,
-    width: 300,
-    height: 200,
-    zIndex: store.getters.zIndexMax + 1,
-  };
-  const runApp: RunAppReq = {
-    appId: nav.appId,
-    title: nav.name,
-    state: true,
-    style,
-  };
-  store.dispatch("addRunApp", runApp);
+  if (nav.single) {
+    const runApp = store.state.runAppList.find((item) => item.appId === nav.appId);
+    if (runApp === undefined) {
+      const clientWidth = document.body.clientWidth;
+      const style: StyleReq = {
+        left: clientWidth / 2 - 150 - Math.random() * 100,
+        top: 300,
+        zIndex: store.getters.zIndexMax + 1,
+      };
+      const runAppTemp: RunAppReq = {
+        appId: nav.appId,
+        title: nav.name,
+        state: true,
+        hidden: false,
+        style,
+      };
+      store.dispatch("addRunApp", runAppTemp);
+    } else {
+      store.commit("setRunAppHidden", { id: runApp.id, hidden: false });
+    }
+  } else {
+    //赞不考虑一个应用多个实例的方法
+  }
 }
 </script>
 <style lang="scss" scoped>

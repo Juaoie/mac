@@ -12,17 +12,15 @@
     :min-h="200"
     :parent="false"
     @activated="activatedHandle"
-    @drag-end="dragEnd"
     @resize-start="activatedHandle"
-    @resize-end="resizeEnd"
   >
-    <div class="window-bear">
+    <div class="window-app">
       <div class="window-bar df aic jcc pr">
         <div class="traffic-lights pa df aic">
           <div class="rounded-full close df aic jcc" @click="closeAppWindow">
             <el-icon size="8"><close /></el-icon>
           </div>
-          <div class="rounded-full minus df aic jcc">
+          <div class="rounded-full minus df aic jcc" @click="hiddenAppWindow">
             <el-icon size="8"><minus /></el-icon>
           </div>
           <div class="rounded-full full-screen df aic jcc">
@@ -30,6 +28,15 @@
           </div>
         </div>
         <span>{{ runApp.title }}</span>
+      </div>
+      <div class="window-body">
+        <iframe
+          v-if="list.find((item) => item.appId === runApp.appId)?.link"
+          class="w24 heightfull"
+          :src="list.find((item) => item.appId === runApp.appId)?.link"
+          frameborder="0"
+          title="VSCode"
+        ></iframe>
       </div>
     </div>
   </Vue3DraggableResizable>
@@ -40,8 +47,9 @@ import Vue3DraggableResizable from "./components/Vue3DraggableResizable.vue";
 import { ref, watch, CSSProperties, onUnmounted, provide, Ref } from "vue";
 import { useStore } from "@/store";
 import { Close, Minus, FullScreen } from "@element-plus/icons-vue";
-import { RunAppRes } from "@/socket/interface/response/RunAppRes";
-import { StyleNamelist } from "@t/type";
+import { RunAppReq } from "@/socket/interface/request/RunAppReq";
+import { NavigationRes } from "@/socket/interface/response/NavigationRes";
+import { getNavList } from "@/socket/api";
 
 const store = useStore();
 
@@ -50,30 +58,18 @@ const runApp = store.state.runAppList.find((item) => item.id === runAppId);
 if (runApp === undefined) throw "runApp不存在";
 const style = ref(runApp.style);
 
+const list = ref<NavigationRes[]>([]);
+async function created() {
+  list.value = await getNavList();
+}
+created();
 /**
  * 选中状态
  */
 function activatedHandle() {
   if (store.getters.zIndexMax === style.value.zIndex) return;
   style.value.zIndex = store.getters.zIndexMax + 1;
-}
-/**
- * 拖动结束触发
- */
-function dragEnd() {
-  updateRunApp();
-}
-/**
- * 缩放结束触发
- */
-function resizeEnd() {
-  updateRunApp();
-}
-/**
- * 更新runapp数据
- */
-function updateRunApp() {
-  store.dispatch("updateRunApp", runAppId);
+  store.commit("setRunAppStyle", { id: runAppId, style: style.value });
 }
 
 /**
@@ -82,9 +78,15 @@ function updateRunApp() {
 function closeAppWindow() {
   store.dispatch("deleteRunApp", runAppId);
 }
+/**
+ * 点击隐藏窗口
+ */
+function hiddenAppWindow() {
+  store.commit("setRunAppHidden", { id: runApp?.id, hidden: true });
+}
 </script>
 <style lang="scss" scoped>
-.window-bear {
+.window-app {
   width: 100%;
   height: 100%;
   border-radius: 6px;
@@ -124,6 +126,11 @@ function closeAppWindow() {
         background: #11c489;
       }
     }
+  }
+  .window-body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
   }
 }
 </style>

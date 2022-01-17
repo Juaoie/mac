@@ -21,7 +21,6 @@ export const actions = {
     await addRunApp(runApp);
     const runAppList = await getRunAppList();
     context.commit("setRunAppList", runAppList);
-    context.commit("setMaxZIndex", Math.max(...runAppList.map((item) => item.style.zIndex)));
   },
   /**
    * 删除
