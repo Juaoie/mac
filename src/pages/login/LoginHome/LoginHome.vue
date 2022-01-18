@@ -9,7 +9,7 @@
   <div class="page df aic jcc ffcn">
     <img class="avatar" src="@a/img/avatar.jpg" title="切换账户" />
     <span class="user-name fp">{{ storage.userName }}</span>
-    <el-input
+    <input
       class="password"
       v-model="password"
       type="password"
@@ -20,12 +20,11 @@
       @blur="focus = false"
       @input="submit"
       @keyup.enter="submit"
-    ></el-input>
+    />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ElNotification } from "element-plus";
 import { userLogin, quickLogin } from "@s/api";
 import { ref } from "vue";
 import storage from "@t/storage";
@@ -44,7 +43,7 @@ async function submit() {
       await userLogin({ userId: storage.userId as number, password: password.value });
       router.push("/HomePage");
     } catch (error: any) {
-      ElNotification({ message: error.data, type: "error", duration: 1500 });
+      console.log("🚀 ~ file: LoginHome.vue ~ line 47 ~ submit ~  error.data", error.data);
     }
   }
 }
@@ -106,15 +105,8 @@ created();
     outline: none;
     border-radius: 4px;
     background: rgba($color: #fff, $alpha: 0.4);
-    & :deep(input) {
-      padding: 0;
+    &::placeholder {
       color: #fff;
-      background: rgba($color: #000, $alpha: 0);
-      border: none;
-      height: 22px;
-      &::placeholder {
-        color: #fff;
-      }
     }
   }
 }

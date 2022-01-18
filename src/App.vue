@@ -5,11 +5,7 @@
 </template>
 
 <script setup lang="ts">
-
-
-async function created() {
-
-}
+async function created() {}
 created();
 </script>
 <style lang="scss" scoped>

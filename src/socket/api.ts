@@ -1,6 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 const { VITE_BASE_URL } = import.meta.env;
-import { ElNotification } from "element-plus";
 import { useRouter } from "vue-router";
 import router from "@/router";
 
@@ -13,18 +12,12 @@ instance.interceptors.response.use(
     return res.data;
   },
   (error) => {
-    // ElNotification({ message: error.response.data, type: "error" });
 
     if (error.response.status === 403) router.replace("/LoginHome");
 
     return Promise.reject(error.response);
   }
 );
-
-// const get = <T, D>(url: string, config?: AxiosRequestConfig<D>): Promise<T> => instance.get<T, T, D>(url, config);
-
-// const post = async <T, D>(url: string, data?: D, config?: AxiosRequestConfig<D>): Promise<T> =>
-//   instance.post<T, T, D>(url, data, config);
 
 //获取导航列表
 import { NavigationRes } from "./interface/response/NavigationRes";

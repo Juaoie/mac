@@ -18,13 +18,13 @@
       <div class="window-bar df aic jcc pr">
         <div class="traffic-lights pa df aic">
           <div class="rounded-full close df aic jcc" @click="closeAppWindow">
-            <el-icon size="8"><close /></el-icon>
+            <img src="@a/img/icon/close.png" />
           </div>
           <div class="rounded-full minus df aic jcc" @click="hiddenAppWindow">
-            <el-icon size="8"><minus /></el-icon>
+            <img src="@a/img/icon/minus.png" />
           </div>
           <div class="rounded-full full-screen df aic jcc">
-            <el-icon size="8"><full-screen /></el-icon>
+            <img src="@a/img/icon/full-screen.png" />
           </div>
         </div>
         <span>{{ runApp.title }}</span>
@@ -42,12 +42,10 @@
     </div>
   </Vue3DraggableResizable>
 </template>
-
 <script lang="ts" setup>
 import Vue3DraggableResizable from "./components/Vue3DraggableResizable.vue";
 import { ref, watch, CSSProperties, onUnmounted, provide, Ref, computed } from "vue";
 import { useStore } from "@/store";
-import { Close, Minus, FullScreen } from "@element-plus/icons-vue";
 import { RunAppReq } from "@/socket/interface/request/RunAppReq";
 import { NavigationRes } from "@/socket/interface/response/NavigationRes";
 import { getNavList } from "@/socket/api";
@@ -82,9 +80,7 @@ function hiddenAppWindow() {
   store.commit("setRunAppHidden", { id: runApp?.id, hidden: true });
 }
 
-function load() {
-  console.log("🚀 ~ file: index.vue ~ line 90 ~ load ~ res", 111);
-}
+function load() {}
 </script>
 <style lang="scss" scoped>
 .window-app {
@@ -103,7 +99,7 @@ function load() {
     font-size: 16px;
     .traffic-lights {
       left: 0;
-      &:hover .rounded-full .el-icon {
+      &:hover .rounded-full img {
         display: inline-block;
       }
       .rounded-full {
@@ -112,9 +108,11 @@ function load() {
         width: 13px;
         height: 13px;
         cursor: pointer;
-        .el-icon {
+        & > img {
           display: none;
           color: #000;
+          width: 8px;
+          height: 8px;
         }
       }
       .close {
