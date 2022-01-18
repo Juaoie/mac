@@ -3,7 +3,7 @@
     <ul class="navigation df aife pr">
       <li
         class="df jcc"
-        v-for="item in list"
+        v-for="item in store.state.navList"
         @mousemove="hoverIndex = item.appId"
         @mouseout="hoverIndex = 0"
         @click="runApp(item)"
@@ -62,11 +62,6 @@ function mouseout() {
 }
 
 const hoverIndex = ref(0);
-const list = ref<NavigationRes[]>([]);
-async function created() {
-  list.value = await getNavList();
-}
-created();
 
 /**
  * 添加一个runapp

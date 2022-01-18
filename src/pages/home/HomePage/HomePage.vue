@@ -15,7 +15,7 @@ import DraggableContainer from "@/pages/AppWindow/components/DraggableContainer"
 import HomeNavigation from "./components/home-navigation.vue";
 import AppWindow from "@p/AppWindow/index.vue";
 import storage from "@t/storage";
-import { getRunAppList } from "@s/api";
+import { getNavList, getRunAppList } from "@s/api";
 import { useStore } from "@/store";
 import { Next } from "u-node-mq/dist/core/consumer";
 import { watch } from "vue";
@@ -25,8 +25,9 @@ import { RunAppRes } from "@/socket/interface/response/RunAppRes";
 const store = useStore();
 
 async function created() {
-  const runAppList = await getRunAppList();
+  const [runAppList, navList] = await Promise.all([getRunAppList(), getNavList()]);
   store.commit("setRunAppList", runAppList);
+  store.commit("setNavList", navList);
   const observable = new Observable<RunAppRes>((observer) => {
     store.state.runAppList.forEach((item) => {
       watch(

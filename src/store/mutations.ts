@@ -1,3 +1,4 @@
+import { NavigationRes } from "@/socket/interface/response/NavigationRes";
 import { RunAppRes, StyleRes } from "@/socket/interface/response/RunAppRes";
 import { State } from "./state";
 export const mutations = {
@@ -8,6 +9,14 @@ export const mutations = {
    */
   setRunAppList(state: State, runAppList: RunAppRes[]) {
     state.runAppList = runAppList;
+  },
+  /**
+   * 设置navList
+   * @param state
+   * @param navList
+   */
+  setNavList(state: State, navList: NavigationRes[]) {
+    state.navList = navList;
   },
   /**
    * 设置单个runapp

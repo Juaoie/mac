@@ -31,11 +31,12 @@
       </div>
       <div class="window-body">
         <iframe
-          v-if="list.find((item) => item.appId === runApp.appId)?.link"
+          v-if="nav?.link"
           class="w24 heightfull"
-          :src="list.find((item) => item.appId === runApp.appId)?.link"
+          :src="nav?.link"
           frameborder="0"
           title="VSCode"
+          @load="load"
         ></iframe>
       </div>
     </div>
@@ -44,7 +45,7 @@
 
 <script lang="ts" setup>
 import Vue3DraggableResizable from "./components/Vue3DraggableResizable.vue";
-import { ref, watch, CSSProperties, onUnmounted, provide, Ref } from "vue";
+import { ref, watch, CSSProperties, onUnmounted, provide, Ref, computed } from "vue";
 import { useStore } from "@/store";
 import { Close, Minus, FullScreen } from "@element-plus/icons-vue";
 import { RunAppReq } from "@/socket/interface/request/RunAppReq";
@@ -58,11 +59,7 @@ const runApp = store.state.runAppList.find((item) => item.id === runAppId);
 if (runApp === undefined) throw "runApp不存在";
 const style = ref(runApp.style);
 
-const list = ref<NavigationRes[]>([]);
-async function created() {
-  list.value = await getNavList();
-}
-created();
+const nav = computed(() => store.state.navList.find((item) => item.appId === runApp.appId));
 /**
  * 选中状态
  */
@@ -83,6 +80,10 @@ function closeAppWindow() {
  */
 function hiddenAppWindow() {
   store.commit("setRunAppHidden", { id: runApp?.id, hidden: true });
+}
+
+function load() {
+  console.log("🚀 ~ file: index.vue ~ line 90 ~ load ~ res", 111);
 }
 </script>
 <style lang="scss" scoped>
