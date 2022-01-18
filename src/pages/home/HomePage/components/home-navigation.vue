@@ -22,6 +22,7 @@ import { NavigationRes } from "@/socket/interface/response/NavigationRes";
 import { RunAppReq, StyleReq } from "@s/interface/request/RunAppReq";
 
 import { useStore } from "@/store";
+import { linkSync } from "fs";
 const store = useStore();
 
 const dock = ref<HTMLElement | null>();
@@ -67,28 +68,38 @@ const hoverIndex = ref(0);
  * 添加一个runapp
  */
 async function runApp(nav: NavigationRes) {
-  if (nav.single) {
-    const runApp = store.state.runAppList.find((item) => item.appId === nav.appId);
-    if (runApp === undefined) {
-      const clientWidth = document.body.clientWidth;
-      const style: StyleReq = {
-        left: clientWidth / 2 - 150 - Math.random() * 100,
-        top: 300,
-        zIndex: store.getters.zIndexMax + 1,
-      };
-      const runAppTemp: RunAppReq = {
-        appId: nav.appId,
-        title: nav.name,
-        state: true,
-        hidden: false,
-        style,
-      };
-      store.dispatch("addRunApp", runAppTemp);
+  if (nav.desktop) {
+    if (nav.single) {
+      const runApp = store.state.runAppList.find((item) => item.appId === nav.appId);
+      if (runApp === undefined) {
+        const clientWidth = document.body.clientWidth;
+        const style: StyleReq = {
+          left: clientWidth / 2 - 150 - Math.random() * 100,
+          top: 300,
+          zIndex: store.getters.zIndexMax + 1,
+        };
+        const runAppTemp: RunAppReq = {
+          appId: nav.appId,
+          title: nav.name,
+          state: true,
+          hidden: false,
+          style,
+        };
+        store.dispatch("addRunApp", runAppTemp);
+      } else {
+        store.commit("setRunAppHidden", { id: runApp.id, hidden: false });
+      }
     } else {
-      store.commit("setRunAppHidden", { id: runApp.id, hidden: false });
+      //赞不考虑一个应用多个实例的方法
     }
   } else {
-    //赞不考虑一个应用多个实例的方法
+    const link = document.createElement("a"); // 创建元素
+    link.href = nav.link;
+    document.body.appendChild(link);
+    link.style.display = "none";
+    link.target = "_blank";
+    link.click();
+    document.body.removeChild(link);
   }
 }
 </script>

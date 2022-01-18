@@ -4,4 +4,5 @@ export interface NavigationRes {
   name: string;
   single: boolean;
   link: string;
+  desktop: boolean;
 }
