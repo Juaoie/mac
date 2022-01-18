@@ -106,7 +106,7 @@ async function runApp(nav: NavigationRes) {
 <style lang="scss" scoped>
 .dock {
   width: fit-content;
-  z-index: 9999999999999;
+  z-index: 999999;
   bottom: 0;
   left: 0;
   right: 0;

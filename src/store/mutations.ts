@@ -40,4 +40,15 @@ export const mutations = {
       state.runAppList[index].hidden = runApp.hidden;
     }
   },
+  /**
+   * 设置应用全屏
+   * @param state
+   * @param runApp
+   */
+  setRunAppFullScreen(state: State, runApp: { id: number; fullScreen: boolean }) {
+    const index = state.runAppList.findIndex((item) => item.id === runApp.id);
+    if (index !== -1) {
+      state.runAppList[index].fullScreen = runApp.fullScreen;
+    }
+  },
 };

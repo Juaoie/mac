@@ -7,12 +7,14 @@
     v-model:y="style.top"
     v-model:w="style.width"
     v-model:h="style.height"
+    v-model:fullScreen="runApp.fullScreen"
     :z-index="style.zIndex"
     :min-w="300"
     :min-h="200"
     :parent="false"
     @activated="activatedHandle"
     @resize-start="activatedHandle"
+    @drag-end="dragEnd"
   >
     <div class="window-app">
       <div class="window-bar df aic jcc pr">
@@ -23,7 +25,7 @@
           <div class="rounded-full minus df aic jcc" @click="hiddenAppWindow">
             <img src="@a/img/icon/minus.png" />
           </div>
-          <div class="rounded-full full-screen df aic jcc">
+          <div class="rounded-full full-screen df aic jcc" @click="screenSize">
             <img src="@a/img/icon/full-screen.png" />
           </div>
         </div>
@@ -44,11 +46,12 @@
 </template>
 <script lang="ts" setup>
 import Vue3DraggableResizable from "./components/Vue3DraggableResizable.vue";
-import { ref, watch, CSSProperties, onUnmounted, provide, Ref, computed } from "vue";
+import { ref, watch, CSSProperties, onUnmounted, provide, Ref, computed, resolveComponent, onMounted } from "vue";
 import { useStore } from "@/store";
 import { RunAppReq } from "@/socket/interface/request/RunAppReq";
 import { NavigationRes } from "@/socket/interface/response/NavigationRes";
 import { getNavList } from "@/socket/api";
+import { RunAppRes } from "@/socket/interface/response/RunAppRes";
 
 const store = useStore();
 
@@ -57,7 +60,22 @@ const runApp = store.state.runAppList.find((item) => item.id === runAppId);
 if (runApp === undefined) throw "runApp不存在";
 const style = ref(runApp.style);
 
+onMounted(() => {
+  store.commit("setRunAppStyle", { id: runAppId, style: lintStyle(runApp).style });
+});
+
 const nav = computed(() => store.state.navList.find((item) => item.appId === runApp.appId));
+function lintStyle(runApp: RunAppRes) {
+  if (runApp.style.top < 0) runApp.style.top = 20;
+  else if (runApp.style.top > document.body.clientHeight - 100) runApp.style.top = document.body.clientHeight - 100;
+  if (runApp.style.left < 0) runApp.style.left = 20;
+  else if (runApp.style.left > document.body.clientWidth - 100) runApp.style.left = document.body.clientWidth - 100;
+  return runApp;
+}
+function dragEnd() {
+  if (runApp === undefined) return;
+  store.commit("setRunAppStyle", { id: runAppId, style: lintStyle(runApp).style });
+}
 /**
  * 选中状态
  */
@@ -77,7 +95,15 @@ function closeAppWindow() {
  * 点击隐藏窗口
  */
 function hiddenAppWindow() {
-  store.commit("setRunAppHidden", { id: runApp?.id, hidden: true });
+  if (runApp === undefined) return;
+  store.commit("setRunAppHidden", { id: runApp.id, hidden: true });
+}
+/**
+ * 控制全屏还是小屏
+ */
+function screenSize() {
+  if (runApp === undefined) return;
+  store.commit("setRunAppFullScreen", { id: runApp.id, fullScreen: !runApp.fullScreen });
 }
 
 function load() {}
@@ -86,7 +112,7 @@ function load() {}
 .window-app {
   width: 100%;
   height: 100%;
-  border-radius: 6px;
+  border-radius: v-bind("runApp.fullScreen ? '0px': '6px'");
   background: #fff;
   overflow: hidden;
   box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,

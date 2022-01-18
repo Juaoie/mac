@@ -1,5 +1,5 @@
 <template>
-  <div @contextmenu.prevent class="page pf">
+  <div @contextmenu.prevent class="page pr">
     <router-view></router-view>
   </div>
 </template>

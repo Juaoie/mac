@@ -13,6 +13,10 @@ import { UpdatePosition, GetPositionStore, ResizingHandle, ContainerProvider, Se
 export const ALL_HANDLES: ResizingHandle[] = ["tl", "tm", "tr", "ml", "mr", "bl", "bm", "br"];
 
 const VdrProps = {
+  fullScreen: {
+    type: Boolean,
+    default: false,
+  },
   zIndex: {
     type: Number,
     default: 0,
@@ -217,7 +221,15 @@ const VueDraggableResizable = defineComponent({
       {
         ref: "containerRef",
         class: ["vdr-container", this.klass],
-        style: this.style,
+        style: this.fullScreen
+          ? {
+              width: "100vw",
+              height: "100vh",
+              top: "0",
+              lef: "0",
+              "z-index": "9999999",
+            }
+          : this.style,
       },
       [
         this.$slots.default && this.$slots.default(),

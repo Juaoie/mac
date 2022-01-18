@@ -4,6 +4,7 @@ export interface RunAppRes {
   title: string;
   state: boolean;
   hidden: boolean;
+  fullScreen: boolean;
   style: StyleRes;
 }
 export interface StyleRes {
