@@ -14,6 +14,7 @@
     :parent="false"
     @activated="activatedHandle"
     @resize-start="activatedHandle"
+    @dragging="dragging"
     @drag-end="dragEnd"
   >
     <div class="window-app">
@@ -72,6 +73,24 @@ function lintStyle(runApp: RunAppRes) {
   else if (runApp.style.left > document.body.clientWidth - 100) runApp.style.left = document.body.clientWidth - 100;
   return runApp;
 }
+/**
+ * 开始拖动
+ */
+function dragging(res: { x: number; y: number }) {
+  //TODO:全屏拖动位置还是有问题
+  if (runApp === undefined) return;
+  if (runApp.fullScreen) {
+    store.commit("setRunAppFullScreen", { id: runApp.id, fullScreen: false });
+    console.log("🚀 ~ file: index.vue ~ line 85 ~ dragging ~ store.state.bodyMouseEvent.clientY", store.state.bodyMouseEvent.clientY)
+    console.log("🚀 ~ file: index.vue ~ line 85 ~ dragging ~ runApp.style.top", runApp.style.top)
+    runApp.style.top = store.state.bodyMouseEvent.clientY;
+    runApp.style.left = store.state.bodyMouseEvent.clientX;
+    store.commit("setRunAppStyle", { id: runAppId, style: runApp.style });
+  }
+}
+/**
+ * 结束拖动
+ */
 function dragEnd() {
   if (runApp === undefined) return;
   store.commit("setRunAppStyle", { id: runAppId, style: lintStyle(runApp).style });

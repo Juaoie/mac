@@ -51,4 +51,12 @@ export const mutations = {
       state.runAppList[index].fullScreen = runApp.fullScreen;
     }
   },
+  /**
+   * 设置鼠标在浏览器的移动事件参数
+   * @param state
+   * @param bodyMouseEvent
+   */
+  setBodyMouseEvent(state: State, bodyMouseEvent: MouseEvent) {
+    state.bodyMouseEvent = bodyMouseEvent;
+  },
 };
