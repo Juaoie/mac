@@ -69,7 +69,7 @@ const nav = computed(() => store.state.navList.find((item) => item.appId === run
 function lintStyle(runApp: RunAppRes) {
   if (runApp.style.top < 0) runApp.style.top = 20;
   else if (runApp.style.top > document.body.clientHeight - 100) runApp.style.top = document.body.clientHeight - 100;
-  if (runApp.style.left < 0) runApp.style.left = 20;
+  if (runApp.style.left + runApp.style.width < 100) runApp.style.left = 100 - runApp.style.width;
   else if (runApp.style.left > document.body.clientWidth - 100) runApp.style.left = document.body.clientWidth - 100;
   return runApp;
 }
@@ -81,8 +81,11 @@ function dragging(res: { x: number; y: number }) {
   if (runApp === undefined) return;
   if (runApp.fullScreen) {
     store.commit("setRunAppFullScreen", { id: runApp.id, fullScreen: false });
-    console.log("🚀 ~ file: index.vue ~ line 85 ~ dragging ~ store.state.bodyMouseEvent.clientY", store.state.bodyMouseEvent.clientY)
-    console.log("🚀 ~ file: index.vue ~ line 85 ~ dragging ~ runApp.style.top", runApp.style.top)
+    console.log(
+      "🚀 ~ file: index.vue ~ line 85 ~ dragging ~ store.state.bodyMouseEvent.clientY",
+      store.state.bodyMouseEvent.clientY
+    );
+    console.log("🚀 ~ file: index.vue ~ line 85 ~ dragging ~ runApp.style.top", runApp.style.top);
     runApp.style.top = store.state.bodyMouseEvent.clientY;
     runApp.style.left = store.state.bodyMouseEvent.clientX;
     store.commit("setRunAppStyle", { id: runAppId, style: runApp.style });

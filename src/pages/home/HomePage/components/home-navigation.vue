@@ -106,7 +106,7 @@ async function runApp(nav: NavigationRes) {
 <style lang="scss" scoped>
 .dock {
   width: fit-content;
-  z-index: 999999;
+  z-index: v-bind("store.getters.zIndexMax + 10");
   bottom: 0;
   left: 0;
   right: 0;
