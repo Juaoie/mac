@@ -81,11 +81,7 @@ function dragging(res: { x: number; y: number }) {
   if (runApp === undefined) return;
   if (runApp.fullScreen) {
     store.commit("setRunAppFullScreen", { id: runApp.id, fullScreen: false });
-    console.log(
-      "🚀 ~ file: index.vue ~ line 85 ~ dragging ~ store.state.bodyMouseEvent.clientY",
-      store.state.bodyMouseEvent.clientY
-    );
-    console.log("🚀 ~ file: index.vue ~ line 85 ~ dragging ~ runApp.style.top", runApp.style.top);
+
     runApp.style.top = store.state.bodyMouseEvent.clientY;
     runApp.style.left = store.state.bodyMouseEvent.clientX;
     store.commit("setRunAppStyle", { id: runAppId, style: runApp.style });
