@@ -14,20 +14,12 @@ export default defineConfig({
       "@p": resolve(__dirname, "src/pages/"),
     },
   },
-  build: {
-    rollupOptions: {
-      input: {
-        main: resolve(__dirname, "index.html"),
-        nested: resolve(__dirname, "nested/logs/index.html"),
-      },
+  server: {
+    host: "0.0.0.0",
+    port: 3001,
+    cors: true,
+    proxy: {
+      "/user": "http://127.0.0.1:3000",
     },
   },
-//   server: {
-//     host: "0.0.0.0",
-//     port: 3001,
-//     cors: true,
-//     proxy: {
-//       "/user": "http://127.0.0.1:3000",
-//     },
-//   },
 });
