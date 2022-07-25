@@ -4,9 +4,8 @@
     class="wallpaper"
     src="@a/img/wallpaper-night.jpg"
     :class="{ 'input-focus': focus }"
-    title="背景"
   />
-  <img v-else class="wallpaper" src="@a/img/wallpaper-day.jpg" :class="{ 'input-focus': focus }" title="背景" />
+  <img v-else class="wallpaper" src="@a/img/wallpaper-day.jpg" :class="{ 'input-focus': focus }" />
   <div class="page df aic jcc ffcn">
     <img class="avatar" src="@a/img/avatar.jpg" title="切换账户" />
     <span class="user-name fp">{{ storage.userName }}</span>
@@ -29,11 +28,10 @@
 import { userLogin, quickLogin } from "@s/api";
 import { ref } from "vue";
 import storage from "@t/storage";
-import { useRouter } from "vue-router";
-
 storage.userName = "Gaojie Hu";
 storage.userId = 1;
 
+import { useRouter } from "vue-router";
 const router = useRouter();
 
 const password = ref("");
