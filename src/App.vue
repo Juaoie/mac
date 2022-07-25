@@ -5,10 +5,11 @@
 </template>
 
 <script setup lang="ts">
+import { mousemoves } from "@t/unmq";
 import { useStore } from "@/store/index";
-import { fromEvent } from "rxjs";
 const store = useStore();
-fromEvent<MouseEvent>(document, "mousemove").subscribe((mouseEvent: MouseEvent) => {
+
+mousemoves.pushConsume((mouseEvent) => {
   store.commit("setBodyMouseEvent", mouseEvent);
 });
 async function created() {}

@@ -17,10 +17,10 @@ import AppWindow from "@p/AppWindow/index.vue";
 import storage from "@t/storage";
 import { getNavList, getRunAppList } from "@s/api";
 import { useStore } from "@/store";
-import { Next } from "u-node-mq/dist/core/consumer";
 import { watch } from "vue";
-import { Observable, debounceTime } from "rxjs";
 import { RunAppRes } from "@/socket/interface/response/RunAppRes";
+import { Queue } from "u-node-mq";
+import debounceTime from "u-node-mq/operators/debounceTime";
 
 const store = useStore();
 
@@ -28,18 +28,20 @@ async function created() {
   const [runAppList, navList] = await Promise.all([getRunAppList(), getNavList()]);
   store.commit("setRunAppList", runAppList);
   store.commit("setNavList", navList);
-  const observable = new Observable<RunAppRes>((observer) => {
-    store.state.runAppList.forEach((item) => {
-      watch(
-        () => item,
-        (res) => observer.next(res),
-        {
-          deep: true,
-        }
-      );
-    });
+
+  const qu1 = new Queue<RunAppRes>().add(debounceTime(500));
+
+  store.state.runAppList.forEach((item) => {
+    watch(
+      () => item,
+      (res) => qu1.push(res),
+      {
+        deep: true,
+      }
+    );
   });
-  observable.pipe(debounceTime(500)).subscribe((res) => {
+
+  qu1.pushConsume((res) => {
     store.dispatch("updateRunApp", res.id);
   });
 }
