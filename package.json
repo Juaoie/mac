@@ -1,5 +1,5 @@
 {
-  "name": "juzi-admin",
+  "name": "mac",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite --port 3001 --host ",
@@ -7,20 +7,18 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "axios": "^0.24.0",
-    "js-base64": "^3.7.2",
-    "js-md5": "^0.7.3",
+    "css-doodle": "^0.29.0",
     "u-node-mq": "^3.6.2",
     "vue": "^3.2.16",
     "vue-router": "4.0.12",
-    "vue3-draggable-resizable": "^1.6.1",
-    "vuex": "^4.0.2"
+    "vue3-draggable-resizable": "^1.6.1"
   },
   "devDependencies": {
     "@types/js-md5": "^0.4.3",
     "@types/node": "^16.11.10",
     "@vitejs/plugin-vue": "^1.9.3",
     "autoprefixer": "^10.4.0",
+    "postcss": "8.1.0",
     "sass": "^1.43.4",
     "typescript": "^4.4.3",
     "vite": "^2.6.4",

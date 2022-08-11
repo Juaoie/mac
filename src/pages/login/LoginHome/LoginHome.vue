@@ -26,13 +26,9 @@
 </template>
 
 <script lang="ts" setup>
-import { userLogin, quickLogin } from "@s/api";
 import { ref } from "vue";
-import storage from "@t/storage";
 import { useRouter } from "vue-router";
-
-storage.userName = "Gaojie Hu";
-storage.userId = 1;
+import storage from "@t/storage";
 
 const router = useRouter();
 
@@ -40,21 +36,10 @@ const password = ref("");
 const focus = ref(false);
 
 async function submit() {
-  if (password.value.length >= 6) {
-    try {
-      await userLogin({ userId: storage.userId as number, password: password.value });
-      router.push("/HomePage");
-    } catch (error: any) {
-      console.log("🚀 ~ file: LoginHome.vue ~ line 47 ~ submit ~  error.data", error.data);
-    }
+  if (password.value.length === 6) {
+    router.push("/HomePage");
   }
 }
-
-async function created() {
-  const data = await quickLogin();
-  if (data) router.push("/HomePage");
-}
-created();
 </script>
 
 <style lang="scss" scoped>

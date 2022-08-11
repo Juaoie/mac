@@ -3,49 +3,17 @@
   <img v-else class="wallpaper" src="@a/img/wallpaper-day.jpg" @contextmenu.prevent />
   <div class="mask pa"></div>
   <home-navigation></home-navigation>
-  <DraggableContainer :referenceLineVisible="false">
-    <template v-for="item in store.state.runAppList" :key="item.id">
+  <!-- <DraggableContainer :referenceLineVisible="false"> -->
+    <!-- <template v-for="item in store.state.runAppList" :key="item.id">
       <app-window :runAppId="item.id" v-show="!item.hidden"></app-window>
-    </template>
-  </DraggableContainer>
+    </template> -->
+  <!-- </DraggableContainer> -->
 </template>
 
 <script lang="ts" setup>
-import DraggableContainer from "@/pages/AppWindow/components/DraggableContainer";
+// import DraggableContainer from "@/pages/AppWindow/components/DraggableContainer";
 import HomeNavigation from "./components/home-navigation.vue";
-import AppWindow from "@p/AppWindow/index.vue";
-import storage from "@t/storage";
-import { getNavList, getRunAppList } from "@s/api";
-import { useStore } from "@/store";
-import { watch } from "vue";
-import { RunAppRes } from "@/socket/interface/response/RunAppRes";
-import { Queue } from "u-node-mq";
-import debounceTime from "u-node-mq/operators/debounceTime";
-
-const store = useStore();
-
-async function created() {
-  const [runAppList, navList] = await Promise.all([getRunAppList(), getNavList()]);
-  store.commit("setRunAppList", runAppList);
-  store.commit("setNavList", navList);
-
-  const qu1 = new Queue<RunAppRes>().add(debounceTime(500));
-
-  store.state.runAppList.forEach((item) => {
-    watch(
-      () => item,
-      (res) => qu1.push(res),
-      {
-        deep: true,
-      }
-    );
-  });
-
-  qu1.pushConsume((res) => {
-    store.dispatch("updateRunApp", res.id);
-  });
-}
-created();
+import storage from "@/tools/storage";
 </script>
 
 <style lang="scss" scoped>
